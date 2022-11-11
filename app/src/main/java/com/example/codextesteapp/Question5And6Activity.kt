@@ -17,19 +17,13 @@ import java.util.*
 
 class Question5And6Activity : AppCompatActivity() {
 
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_question5_and_6)
 
-
-
         val buttonConsultar: Button = findViewById(R.id.buttonConsultar)
         buttonConsultar.setOnClickListener {
-
             getCurrentDateTime()
-
         }
 
     }
@@ -40,13 +34,15 @@ class Question5And6Activity : AppCompatActivity() {
             val url = "http://worldclockapi.com/api/json/utc/now"
             val request = Request.Builder().url(url).build()
             client.newCall(request).enqueue(object : Callback {
-                override fun onFailure(call: Call, e: IOException) {}
+                override fun onFailure(call: Call, e: IOException) {
+                    println("Request fail: ${e.localizedMessage}")
+                }
                 override fun onResponse(call: Call, response: Response) {
                     createThread(response)
                 }
             })
         } catch (err: Error) {
-            println("Erro na requisição")
+            println("Erro na requisição: ${err.localizedMessage}")
         }
     }
 
